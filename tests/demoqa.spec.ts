@@ -44,3 +44,14 @@ test('test Radio Button', async ({ page }) => {
 	await expect(page.locator('//p[@class="mt-3"]').textContent()).resolves.toBe("You have selected Impressive");
 	// await page.locator('label[class^="custom-control"][for="noRadio"]').click() тут я бы завела баг, ибо кнопка не кликабельна
 })
+
+test('test Web Tables', async ({ page }) => {
+	await page.locator('//span[text()="Web Tables"]').click()
+	await page.locator('#addNewRecordButton').click()
+	await page.locator('#firstName').fill('Margarita')
+	await page.locator('#lastName').fill('Artsiukhouskaya')
+	await page.locator('#userEmail').fill('lubanecmargo@yandex.ru')
+	await page.locator('#age').fill('30')
+   await page.locator('#salary-label').fill('1000')
+   await page.locator('#department').fill('QA')
+}
