@@ -7,7 +7,7 @@ const permanentAddress = 'Minsk';
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/');
-	await page.locator('div').filter({ hasText: /^Elements$/ }).first().click(); 
+	await page.getByText('Elements').click();  
 });
 
 test('positiv test Text Box', async ({ page }) => {
@@ -15,18 +15,22 @@ test('positiv test Text Box', async ({ page }) => {
 	await page.locator('#userName').fill(userName);
 	await page.locator('#userEmail').fill(userEmail);
 	await page.locator('#currentAddress').fill(currentAddress);
-	await page.locator('#permanentAddress').fill(permanentAddress);
+	await page.locator('#permanentAddress').fill(permanentAddress); 
 	await page.locator('#submit').click();
-	await expect(page.locator(`#output .border #name`)).toHaveText(`Name:${userName}`);
-	await expect(page.locator(`#output .border #email`)).toHaveText(`Email:${userEmail}`);
-	await expect(page.locator(`#output .border #currentAddress`)).toHaveText(`Current Address :${currentAddress}`);
-	await expect(page.locator(`#output .border #permanentAddress`)).toHaveText(`Permananet Address :${permanentAddress}`);
+	await expect(page.locator('#name')).toHaveText(`Name:${userName}`);
+	await expect(page.locator('#email')).toHaveText(`Email:${userEmail}`);
+	await expect(page.locator('#currentAddress.mb-1')).toHaveText(`Current Address :${currentAddress}`);
+	await expect(page.locator('#permanentAddress.mb-1')).toHaveText(`Permananet Address :${permanentAddress}`);
 });
 
 
-test('hegativ test Text Box', async ({ page }) => {
-	await page.locator('li').filter({ hasText: 'Text Box' }).click();
+test('negativ test Text Box', async ({ page }) => {
+	await page.getByText('Text Box').click();
 	await page.locator('#userEmail').fill('5555')
 	await page.locator('#submit').click()
-	await expect(page.locator('#userEmail').getAttribute('placeholder')).resolves.toEqual('name@example.com');
+	//Проверка, что поле ввода загорелось красным цветом
+	const borderColor = await page.locator('#userEmail').evaluate(element => 
+		window.getComputedStyle(element).borderColor
+	);
+	expect(borderColor).toBe('rgb(255, 0, 0)');// Красный цвет в формате RGB
 })

@@ -3,7 +3,8 @@ import { beforeEach } from 'node:test'
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/');
-	await page.locator('div').filter({ hasText: /^Elements$/ }).first().click() //*[text()='Elements']
+	await page.getByText('Elements').click()
+
 });
 
 test('test Web Tables', async ({ page }) => {
@@ -15,7 +16,7 @@ test('test Web Tables', async ({ page }) => {
 	const salary = '1000';
 	const department = 'QA';
 
-	await page.locator('//span[text()="Web Tables"]').click();
+	await page.getByText('Web Tables').click();
 	await page.locator('#addNewRecordButton').click();
 	
 	await page.locator('#firstName').fill(firstName);
