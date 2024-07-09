@@ -14,8 +14,10 @@ test('test checking Home link', async ({ page, context }) => {
 		  page.locator('#simpleLink').click(), 
 		]);
 		await expect(newPage).toHaveURL('https://demoqa.com/')
-		//await expect(newPage.getByText('Selenium Online Training')).toBeVisible();
-	});
+		//expect(await page.locator('img[src="/images/WB.svg"]')).toBeVisible();
+
+   });
+
 
  test('Сlick on the link Created and check for 201 status code', async ({ page }) => {
 	// Шаг 1: Переход на нужную страницу

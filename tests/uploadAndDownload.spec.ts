@@ -39,3 +39,5 @@ test('test downloading a file', async ({ page }) => {
 	 const uploadedFileName = await page.inputValue('#uploadFile');
 	 expect(uploadedFileName).toContain('gpt.txt'); // Убедитесь, что имя файла содержится в пути
   });
+
+
