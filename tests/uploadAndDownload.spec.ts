@@ -36,7 +36,6 @@ test('test downloading a file', async ({ page }) => {
 	  await page.setInputFiles('#uploadFile', filePath);
 
 	 // Проверка, что файл был загружен
-	 const fileName = await page.$eval('#uploadFile', input => input.files[0].name);
-	 expect(fileName).toBe('gpt.txt'); // Убедитесь, что имя файла совпадает
-	 
-});
+	 const uploadedFileName = await page.inputValue('#uploadFile');
+	 expect(uploadedFileName).toContain('gpt.txt'); // Убедитесь, что имя файла содержится в пути
+  });
