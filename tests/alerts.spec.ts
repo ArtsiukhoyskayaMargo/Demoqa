@@ -6,15 +6,19 @@ test.beforeEach(async ({ page }) => {
 	await page.goto('/alerts')
 });
 
-test('test alert', async ({ page }) => {
-  // Ожидание появления alert при клике на кнопку
-  page.once('dialog', async dialog => {
-    // Проверка текста alert
+test('test click button to see alert', async ({ page }) => {
+  page.on('dialog', async dialog => {
     expect(dialog.message()).toBe('You clicked a button');
-    // Нажатие на кнопку OK
     await dialog.accept();
   });
-
-  // Клик по кнопке с локатором #alertButton
   await page.click('#alertButton');
+});
+
+test('test click button to confirm action and check message', async ({ page }) => {
+  page.on('dialog', async dialog => {
+    expect(dialog.message()).toBe('Do you confirm action?');
+    await dialog.accept();
+  });
+  await page.click('#confirmButton');
+  await expect(page.locator('text=You selected Ok')).toBeVisible();
 });
