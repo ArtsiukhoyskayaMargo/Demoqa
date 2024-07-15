@@ -4,7 +4,9 @@ test('test check button color', async ({ page }) => {
 	await page.goto('/');
 	await page.getByText('Elements').click()
 	await page.getByText('Dynamic Properties').click()
-	await page.waitForTimeout(5000);
+	// await page.waitForTimeout(5000);
+	// await expect(page.getByText('Visible After 5 Seconds')).toBeVisible();
+	await page.waitForSelector('text=Visible After 5 Seconds', { timeout: 5000 });
 	await expect(page.getByText('Visible After 5 Seconds')).toBeVisible();
 	await expect(page.getByText('Color Change')).toHaveCSS('color', 'rgb(220, 53, 69)');
 	});
