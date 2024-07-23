@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+/* import { expect, test } from '@playwright/test'
 
 test.describe("Radio buttons", () => {
 	const yesRadioResult = 'Yes';
@@ -14,8 +14,33 @@ test.describe("Radio buttons", () => {
 	});
 });
 
-// test("Click on Yes radio", async ({ page }) => {
-// 	await page.locator('#yesRadio').check({ force: true });
-// 	await page.locator('#yesRadio').isChecked();
-// 	expect(await page.locator('.text-success')).toHaveText(yesRadioResult);
-// });
+Денис
+test("Click on Yes radio", async ({ page }) => {
+	await page.locator('#yesRadio').check({ force: true });
+	await page.locator('#yesRadio').isChecked();
+	expect(await page.locator('.text-success')).toHaveText(yesRadioResult);
+}); */
+
+import { expect, test } from '@playwright/test';
+import { RadioButtonsPage } from '../PageObject/radioButtonPage'
+
+test.describe("Radio buttons", () => {
+  const yesRadioResult = 'Yes';
+
+  let radioButtonsPage;
+
+  test.beforeEach(async ({ page }) => {
+    radioButtonsPage = new RadioButtonsPage(page);
+    await radioButtonsPage.goto();
+  });
+
+  test("Click on Yes radio", async ({ page }) => {
+	const radioButtonsPage = new RadioButtonsPage(page); //когда вызывается new RBP создается новый объект
+  //объекты new User имеют доступ к методам класса.
+	await radioButtonsPage.clickYesRadio(); 
+	const isChecked = await radioButtonsPage.isYesRadioChecked();
+	expect(isChecked).toBeTruthy();
+	const successMessage = await radioButtonsPage.getSuccessMessage();
+	expect(successMessage).toBe(yesRadioResult);
+ });
+});
