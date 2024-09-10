@@ -1,3 +1,4 @@
+'user strict';
 import { expect, test, request } from '@playwright/test';
 
 test.describe('New user', () => {

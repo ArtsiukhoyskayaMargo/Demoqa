@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+/* import { expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/');
@@ -30,3 +30,33 @@ test('test checking Home link', async ({ page, context }) => {
     expect(response.status()).toBe(201);
     expect(await page.locator('#linkResponse')).toContainText('201')
   });
+ */
+
+  import { test, expect } from '@playwright/test';
+  import {LinksPage } from '../PageObject/linksPage';
+
+  test.describe('LinksPage tests', () => {
+	let page: Page;
+	let context;
+	let linksPage: LinksPage;
+
+	test.beforeEach(async ({ browser }) => {
+		context = await browser.newContext();
+		page = await context.newPage();
+		linksPage = new LinksPage(page);
+		await linksPage.goto();
+	});
+
+	test('navigate to links and check home link', async () => {
+		await linksPage.navigateToLinks();
+		const newPage = await linksPage.clickHomeLink(context);
+		await expect(newPage).toHaveURL('https://demoqa.com/');
+	});
+
+	test('click on created link and check response', async () => {
+		await linksPage.navigateToLinks();
+		const response = await linksPage.clickCreated();
+		expect(response.status()).toBe(201);
+		await linksPage.checkResponse();
+	});
+});
