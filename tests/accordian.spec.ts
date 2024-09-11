@@ -17,7 +17,7 @@ test('check that text appears when clicking "What is Lorem Ipsum?"', async ({ pa
 import { test, expect } from '@playwright/test';
 import { AccordianPage } from '../PageObject/accordianPage';
 
-test('check that text appears when clicking " What is Lorem Ipsum ?"', async ({ page }) => {
+test('check that text appears when you clicking " What is Lorem Ipsum ?"', async ({ page }) => {
 	const accordianPage = new AccordianPage(page);
 
 	await accordianPage.goto();
