@@ -1,8 +1,5 @@
 import { type Locator, type Page } from '@playwright/test';
 
-//Мы создадим вспомогательный класс PlaywrightDevPage 
-//для инкапсуляции общих операций на странице playwright.dev. 
-//Внутри он будет использовать объект страницы.
 export class DynamicPropertiesPage { 
 	readonly page: Page;
    readonly elementsLink: Locator;
